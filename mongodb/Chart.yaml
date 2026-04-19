@@ -3,5 +3,5 @@ name: mongodb
 description: MongoDB deployment for rkamradt platform
 type: application
 version: 0.1.0
-appVersion: "7.0"
+appVersion: "4.4"
  

@@ -2,7 +2,7 @@ replicaCount: 1
  
 image:
   repository: mongo
-  tag: "7.0"
+  tag: "4.4"
   pullPolicy: IfNotPresent
  
 auth:
