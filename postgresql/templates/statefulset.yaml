@@ -1,0 +1,107 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ .Chart.Name }}
+  labels:
+    app: {{ .Chart.Name }}
+spec:
+  serviceName: {{ .Chart.Name }}-headless
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Chart.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Chart.Name }}
+    spec:
+      containers:
+      - name: postgresql
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        ports:
+        - name: postgresql
+          containerPort: 5432
+          protocol: TCP
+        env:
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ if .Values.auth.existingSecret }}{{ .Values.auth.existingSecret }}{{ else }}{{ .Chart.Name }}-secret{{ end }}
+              key: postgres-password
+        - name: POSTGRES_USER
+          value: {{ .Values.auth.username | quote }}
+        - name: POSTGRES_DB
+          value: {{ .Values.auth.database | quote }}
+        - name: POSTGRES_PASSWORD_USER
+          valueFrom:
+            secretKeyRef:
+              name: {{ if .Values.auth.existingSecret }}{{ .Values.auth.existingSecret }}{{ else }}{{ .Chart.Name }}-secret{{ end }}
+              key: password
+        - name: PGDATA
+          value: /var/lib/postgresql/data/pgdata
+        {{- if .Values.config }}
+        # PostgreSQL configuration
+        - name: POSTGRES_MAX_CONNECTIONS
+          value: {{ .Values.config.maxConnections | quote }}
+        - name: POSTGRES_SHARED_BUFFERS
+          value: {{ .Values.config.sharedBuffers | quote }}
+        {{- end }}
+        volumeMounts:
+        - name: data
+          mountPath: /var/lib/postgresql/data
+        - name: initdb
+          mountPath: /docker-entrypoint-initdb.d
+        livenessProbe:
+          exec:
+            command:
+            - /bin/sh
+            - -c
+            - pg_isready -U {{ .Values.auth.username }}
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 6
+        readinessProbe:
+          exec:
+            command:
+            - /bin/sh
+            - -c
+            - pg_isready -U {{ .Values.auth.username }}
+          initialDelaySeconds: 5
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 6
+        resources:
+          {{- toYaml .Values.resources | nindent 10 }}
+      {{- if .Values.metrics.enabled }}
+      - name: metrics
+        image: "{{ .Values.metrics.image.repository }}:{{ .Values.metrics.image.tag }}"
+        ports:
+        - name: metrics
+          containerPort: {{ .Values.metrics.port }}
+          protocol: TCP
+        env:
+        - name: DATA_SOURCE_NAME
+          value: "postgresql://{{ .Values.auth.username }}:$(POSTGRES_PASSWORD_USER)@localhost:5432/{{ .Values.auth.database }}?sslmode=disable"
+        - name: POSTGRES_PASSWORD_USER
+          valueFrom:
+            secretKeyRef:
+              name: {{ if .Values.auth.existingSecret }}{{ .Values.auth.existingSecret }}{{ else }}{{ .Chart.Name }}-secret{{ end }}
+              key: password
+      {{- end }}
+      volumes:
+      - name: initdb
+        configMap:
+          name: {{ .Chart.Name }}-initdb
+  volumeClaimTemplates:
+  - metadata:
+      name: data
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      {{- if .Values.storage.storageClassName }}
+      storageClassName: {{ .Values.storage.storageClassName }}
+      {{- end }}
+      resources:
+        requests:
+          storage: {{ .Values.storage.size }}

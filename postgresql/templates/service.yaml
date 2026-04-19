@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Chart.Name }}
+  labels:
+    app: {{ .Chart.Name }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+  - port: {{ .Values.service.port }}
+    targetPort: 5432
+    protocol: TCP
+    name: postgresql
+  {{- if .Values.metrics.enabled }}
+  - port: {{ .Values.metrics.port }}
+    targetPort: {{ .Values.metrics.port }}
+    protocol: TCP
+    name: metrics
+  {{- end }}
+  selector:
+    app: {{ .Chart.Name }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Chart.Name }}-headless
+  labels:
+    app: {{ .Chart.Name }}
+spec:
+  type: ClusterIP
+  clusterIP: None
+  ports:
+  - port: {{ .Values.service.port }}
+    targetPort: 5432
+    protocol: TCP
+    name: postgresql
+  selector:
+    app: {{ .Chart.Name }}

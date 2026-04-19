@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Chart.Name }}-initdb
+  labels:
+    app: {{ .Chart.Name }}
+data:
+  init-databases.sh: |
+    #!/bin/bash
+    set -e
+
+    echo "Creating additional databases and users..."
+
+    {{- range .Values.initdb.databases }}
+    psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-EOSQL
+        SELECT 'CREATE DATABASE {{ . }}' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = '{{ . }}')\gexec
+    EOSQL
+    echo "Database {{ . }} created or already exists"
+    {{- end }}
+
+    {{- range .Values.initdb.users }}
+    psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-EOSQL
+        DO \$\$
+        BEGIN
+          IF NOT EXISTS (SELECT FROM pg_catalog.pg_user WHERE usename = '{{ .name }}') THEN
+            CREATE USER {{ .name }} WITH PASSWORD '{{ .password }}';
+          END IF;
+        END
+        \$\$;
+        GRANT ALL PRIVILEGES ON DATABASE {{ .database }} TO {{ .name }};
+    EOSQL
+    echo "User {{ .name }} created/updated and granted privileges on {{ .database }}"
+    {{- end }}
+
+    echo "Database initialization completed successfully"

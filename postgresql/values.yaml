@@ -1,0 +1,73 @@
+replicaCount: 1
+
+image:
+  repository: postgres
+  tag: "16-alpine"
+  pullPolicy: IfNotPresent
+
+auth:
+  # PostgreSQL super user
+  postgresPassword: "postgres"  # Override this in production
+  # Application database and user
+  username: "appuser"
+  password: "apppassword"  # Override this in production
+  database: "manufacturing"
+
+  # Use existing secret instead of creating one
+  # If set, auth.username, auth.password, and auth.postgresPassword are ignored
+  existingSecret: ""
+  # Keys in the existing secret:
+  #   postgres-password: PostgreSQL super user password
+  #   password: Application user password
+
+# Additional databases to create (beyond the main auth.database)
+initdb:
+  databases:
+    - manufacturing
+    - vehicleevents
+  users:
+    - name: manufacturing_user
+      password: manufacturing_pass
+      database: manufacturing
+    - name: vehicle_user
+      password: vehicle_pass
+      database: vehicleevents
+
+storage:
+  size: 10Gi
+  storageClassName: ""  # leave empty to use cluster default
+
+service:
+  type: ClusterIP
+  port: 5432
+
+resources:
+  requests:
+    memory: "256Mi"
+    cpu: "100m"
+  limits:
+    memory: "1Gi"
+    cpu: "1000m"
+
+# PostgreSQL configuration parameters
+config:
+  maxConnections: 100
+  sharedBuffers: "128MB"
+  effectiveCacheSize: "512MB"
+  maintenanceWorkMem: "64MB"
+  checkpointCompletionTarget: 0.9
+  walBuffers: "16MB"
+  defaultStatisticsTarget: 100
+  randomPageCost: 4
+  effectiveIoConcurrency: 2
+  workMem: "4MB"
+  minWalSize: "1GB"
+  maxWalSize: "4GB"
+
+# Enable metrics exporter (optional)
+metrics:
+  enabled: false
+  image:
+    repository: prometheuscommunity/postgres-exporter
+    tag: "v0.15.0"
+  port: 9187

@@ -1,0 +1,60 @@
+# Kafka configuration
+kafka:
+  replicaCount: 1
+  image:
+    repository: confluentinc/cp-kafka
+    tag: "7.6.0"
+    pullPolicy: IfNotPresent
+
+  service:
+    type: ClusterIP
+    port: 9092
+
+  storage:
+    size: 5Gi
+    storageClassName: ""  # leave empty to use cluster default
+
+  resources:
+    requests:
+      memory: "512Mi"
+      cpu: "250m"
+    limits:
+      memory: "1Gi"
+      cpu: "1000m"
+
+  # Kafka broker configuration
+  config:
+    # Number of partitions for auto-created topics
+    numPartitions: 3
+    # Replication factor for auto-created topics
+    defaultReplicationFactor: 1
+    # Min in-sync replicas
+    minInsyncReplicas: 1
+    # Log retention hours
+    logRetentionHours: 168  # 7 days
+    # Allow auto creation of topics
+    autoCreateTopicsEnable: true
+
+# ZooKeeper configuration (required for Kafka)
+zookeeper:
+  replicaCount: 1
+  image:
+    repository: confluentinc/cp-zookeeper
+    tag: "7.6.0"
+    pullPolicy: IfNotPresent
+
+  service:
+    type: ClusterIP
+    port: 2181
+
+  storage:
+    size: 2Gi
+    storageClassName: ""  # leave empty to use cluster default
+
+  resources:
+    requests:
+      memory: "256Mi"
+      cpu: "100m"
+    limits:
+      memory: "512Mi"
+      cpu: "500m"
