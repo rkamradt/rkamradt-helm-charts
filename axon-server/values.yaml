@@ -1,0 +1,69 @@
+replicaCount: 1
+
+image:
+  repository: axoniq/axonserver
+  tag: "2024.0.0"
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  # gRPC port for Axon Framework clients
+  grpcPort: 8124
+  # HTTP port for UI and REST API
+  httpPort: 8024
+
+storage:
+  events:
+    size: 10Gi
+    storageClassName: ""  # leave empty to use cluster default
+  data:
+    size: 5Gi
+    storageClassName: ""  # leave empty to use cluster default
+
+resources:
+  requests:
+    memory: "512Mi"
+    cpu: "250m"
+  limits:
+    memory: "2Gi"
+    cpu: "2000m"
+
+# Axon Server configuration
+config:
+  # Server name
+  name: axon-server
+  # Hostname for cluster communication
+  hostname: axon-server
+  # Domain for cluster nodes
+  domain: axon-server-headless
+  # Development mode (disable authentication)
+  devMode: true
+  # Enable access control
+  accessControl:
+    enabled: false
+  # Logging level
+  logging:
+    level: INFO
+
+# Enable metrics endpoint
+metrics:
+  enabled: true
+
+# Health checks
+livenessProbe:
+  httpGet:
+    path: /actuator/health/liveness
+    port: 8024
+  initialDelaySeconds: 30
+  periodSeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 3
+
+readinessProbe:
+  httpGet:
+    path: /actuator/health/readiness
+    port: 8024
+  initialDelaySeconds: 20
+  periodSeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 3

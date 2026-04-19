@@ -1,0 +1,85 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ .Chart.Name }}
+  labels:
+    app: {{ .Chart.Name }}
+spec:
+  serviceName: {{ .Chart.Name }}-headless
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Chart.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Chart.Name }}
+    spec:
+      containers:
+      - name: axon-server
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        ports:
+        - name: grpc
+          containerPort: {{ .Values.service.grpcPort }}
+          protocol: TCP
+        - name: http
+          containerPort: {{ .Values.service.httpPort }}
+          protocol: TCP
+        env:
+        - name: AXONIQ_AXONSERVER_NAME
+          value: {{ .Values.config.name | quote }}
+        - name: AXONIQ_AXONSERVER_HOSTNAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: AXONIQ_AXONSERVER_DOMAIN
+          value: {{ .Values.config.domain | quote }}
+        - name: AXONIQ_AXONSERVER_DEVMODE_ENABLED
+          value: {{ .Values.config.devMode | quote }}
+        - name: AXONIQ_AXONSERVER_ACCESSCONTROL_ENABLED
+          value: {{ .Values.config.accessControl.enabled | quote }}
+        - name: LOGGING_LEVEL_IO_AXONIQ
+          value: {{ .Values.config.logging.level | quote }}
+        - name: AXONIQ_AXONSERVER_EVENT_STORAGE
+          value: /axonserver/events
+        - name: AXONIQ_AXONSERVER_SNAPSHOT_STORAGE
+          value: /axonserver/events
+        - name: AXONIQ_AXONSERVER_CONTROLDB_STORAGE
+          value: /axonserver/data
+        volumeMounts:
+        - name: events
+          mountPath: /axonserver/events
+        - name: data
+          mountPath: /axonserver/data
+        {{- if .Values.livenessProbe }}
+        livenessProbe:
+          {{- toYaml .Values.livenessProbe | nindent 10 }}
+        {{- end }}
+        {{- if .Values.readinessProbe }}
+        readinessProbe:
+          {{- toYaml .Values.readinessProbe | nindent 10 }}
+        {{- end }}
+        resources:
+          {{- toYaml .Values.resources | nindent 10 }}
+  volumeClaimTemplates:
+  - metadata:
+      name: events
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      {{- if .Values.storage.events.storageClassName }}
+      storageClassName: {{ .Values.storage.events.storageClassName }}
+      {{- end }}
+      resources:
+        requests:
+          storage: {{ .Values.storage.events.size }}
+  - metadata:
+      name: data
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      {{- if .Values.storage.data.storageClassName }}
+      storageClassName: {{ .Values.storage.data.storageClassName }}
+      {{- end }}
+      resources:
+        requests:
+          storage: {{ .Values.storage.data.size }}

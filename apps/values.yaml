@@ -2,6 +2,9 @@ repoURL: https://github.com/rkamradt/rkamradt-helm-charts
 targetRevision: main
 
 apps:
+  - name: axon-server
+    path: axon-server
+    namespace: axon-server
   - name: kafka
     path: kafka
     namespace: kafka

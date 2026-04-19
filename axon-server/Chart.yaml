@@ -1,0 +1,6 @@
+apiVersion: v2
+name: axon-server
+description: Axon Server for CQRS and Event Sourcing
+type: application
+version: 0.1.0
+appVersion: "2024.0"

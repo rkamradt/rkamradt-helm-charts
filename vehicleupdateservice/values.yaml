@@ -25,7 +25,7 @@ env:
   - name: SPRING_PROFILES_ACTIVE
     value: "kubernetes"
   - name: AXON_AXONSERVER_SERVERS
-    value: "axon-server:8124"
+    value: "axon-server.axon-server.svc.cluster.local:8124"
   - name: MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE
     value: "health,info,metrics,prometheus"
 

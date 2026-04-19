@@ -6,6 +6,7 @@ Helm charts for the rkamradt platform, managed via ArgoCD app-of-apps pattern.
 
 ```
 apps/                    # App of apps chart - creates ArgoCD Application resources
+axon-server/             # Axon Server for CQRS and Event Sourcing
 kafka/                   # Apache Kafka with ZooKeeper
 mongodb/                 # MongoDB database
 postgresql/              # PostgreSQL database
@@ -15,8 +16,6 @@ vehiclequeryservice/     # Vehicle CQRS query service (Axon)
 lotupdateservice/        # Lot CQRS command service (Axon)
 lotqueryservice/         # Lot CQRS query service (Axon)
 ```
-
-**Note:** The vehicle and lot services require Axon Server for event sourcing and CQRS. An Axon Server Helm chart needs to be added to complete the platform.
 
 ## Bootstrapping
 
@@ -84,6 +83,20 @@ You'll need a GitHub Personal Access Token with `read:packages` scope.
 3. Push to main — ArgoCD will pick it up automatically.
 
 ## Infrastructure Services
+
+### Axon Server
+
+CQRS and Event Sourcing server for Axon Framework:
+```
+gRPC: axon-server.axon-server.svc.cluster.local:8124
+HTTP UI: axon-server.axon-server.svc.cluster.local:8024
+```
+
+Access the Axon Server dashboard via port-forward:
+```bash
+kubectl port-forward -n axon-server svc/axon-server 8024:8024
+```
+Then open: http://localhost:8024
 
 ### Kafka
 
