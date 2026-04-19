@@ -1,0 +1,7 @@
+repoURL: https://github.com/rkamradt/rkamradt-helm-charts
+targetRevision: main
+
+apps:
+  - name: mongodb
+    path: mongodb
+    namespace: mongodb
