@@ -31,6 +31,7 @@ spec:
           value: "1"
         - name: KAFKA_ZOOKEEPER_CONNECT
           value: "zookeeper:2181"
+        # Must set KAFKA_ADVERTISED_LISTENERS before KAFKA_LISTENERS to avoid deprecation warnings
         - name: KAFKA_ADVERTISED_LISTENERS
           value: "PLAINTEXT://kafka:9092,INTERNAL://kafka-headless:9093"
         - name: KAFKA_LISTENERS
@@ -39,6 +40,9 @@ spec:
           value: "PLAINTEXT:PLAINTEXT,INTERNAL:PLAINTEXT"
         - name: KAFKA_INTER_BROKER_LISTENER_NAME
           value: "INTERNAL"
+        # Explicitly unset deprecated port configuration
+        - name: KAFKA_PORT
+          value: ""
         - name: KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR
           value: "{{ .Values.kafka.config.defaultReplicationFactor }}"
         - name: KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR
