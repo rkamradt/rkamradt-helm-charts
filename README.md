@@ -9,9 +9,14 @@ apps/                    # App of apps chart - creates ArgoCD Application resour
 kafka/                   # Apache Kafka with ZooKeeper
 mongodb/                 # MongoDB database
 postgresql/              # PostgreSQL database
-vehicleevent-api/        # Vehicle event API service
 manufacturing-service/   # Manufacturing orchestration service
+vehicleupdateservice/    # Vehicle CQRS command service (Axon)
+vehiclequeryservice/     # Vehicle CQRS query service (Axon)
+lotupdateservice/        # Lot CQRS command service (Axon)
+lotqueryservice/         # Lot CQRS query service (Axon)
 ```
+
+**Note:** The vehicle and lot services require Axon Server for event sourcing and CQRS. An Axon Server Helm chart needs to be added to complete the platform.
 
 ## Bootstrapping
 

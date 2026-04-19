@@ -14,3 +14,15 @@ apps:
   - name: manufacturing-service
     path: manufacturing-service
     namespace: rkamradt-platform
+  - name: vehicleupdateservice
+    path: vehicleupdateservice
+    namespace: rkamradt-platform
+  - name: vehiclequeryservice
+    path: vehiclequeryservice
+    namespace: rkamradt-platform
+  - name: lotupdateservice
+    path: lotupdateservice
+    namespace: rkamradt-platform
+  - name: lotqueryservice
+    path: lotqueryservice
+    namespace: rkamradt-platform
