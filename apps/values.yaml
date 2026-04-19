@@ -11,9 +11,6 @@ apps:
   - name: postgresql
     path: postgresql
     namespace: postgresql
-  - name: vehicleevent-api
-    path: vehicleevent-api
-    namespace: rkamradt-platform
   - name: manufacturing-service
     path: manufacturing-service
     namespace: rkamradt-platform
