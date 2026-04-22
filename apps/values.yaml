@@ -29,3 +29,6 @@ apps:
   - name: lotqueryservice
     path: lotqueryservice
     namespace: rkamradt-platform
+  - name: clodapp
+    path: clodapp
+    namespace: clodapp
