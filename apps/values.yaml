@@ -32,3 +32,4 @@ apps:
   - name: clodapp
     path: clodapp
     namespace: clodapp
+    versionValuesFile: version-values.yaml
