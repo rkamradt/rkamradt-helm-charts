@@ -33,3 +33,7 @@ apps:
     path: clodapp
     namespace: clodapp
     versionValuesFile: version-values.yaml
+  - name: api-gateway
+    path: api-gateway
+    namespace: api-gateway
+    versionValuesFile: version-values.yaml
