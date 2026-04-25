@@ -40,6 +40,8 @@ apps:
   - name: architectai
     path: architectai
     namespace: rkamradt-platform
+    versionValuesFile: version-values.yaml
   - name: architectai-api
     path: architectai-api
     namespace: rkamradt-platform
+    versionValuesFile: version-values.yaml
