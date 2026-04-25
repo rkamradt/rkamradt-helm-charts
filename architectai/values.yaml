@@ -1,0 +1,22 @@
+replicaCount: 1
+
+image:
+  repository: ghcr.io/rkamradt/architectai
+  tag: "main"
+  pullPolicy: Always
+
+imagePullSecrets:
+  - name: ghcr-secret
+
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 80
+
+resources:
+  requests:
+    memory: 32Mi
+    cpu: 10m
+  limits:
+    memory: 64Mi
+    cpu: 100m

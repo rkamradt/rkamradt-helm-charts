@@ -37,3 +37,9 @@ apps:
     path: api-gateway
     namespace: api-gateway
     versionValuesFile: version-values.yaml
+  - name: architectai
+    path: architectai
+    namespace: rkamradt-platform
+  - name: architectai-api
+    path: architectai-api
+    namespace: rkamradt-platform
