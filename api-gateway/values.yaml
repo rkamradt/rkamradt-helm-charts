@@ -17,7 +17,7 @@ auth0:
   domain: randyk.us.auth0.com
   audience: https://api.kamradtfamily.net
 
-corsOrigins: "https://clodapp.kamradtfamily.net"
+corsOrigins: "https://clodapp.kamradtfamily.net,https://architect.kamradtfamily.net"
 
 resources:
   requests:
@@ -43,12 +43,7 @@ readinessProbe:
 
 # Routes are configured in the configmap below
 routes: |
-  routes: []
-  # Example:
-  # routes:
-  #   - prefix: /vehicles
-  #     upstream: http://vehicleupdateservice.rkamradt-platform.svc.cluster.local:8080
-  #     stripPrefix: false
-  #   - prefix: /lots
-  #     upstream: http://lotupdateservice.rkamradt-platform.svc.cluster.local:8080
-  #     stripPrefix: false
+  routes:
+    - prefix: /architect
+      upstream: http://architectai-api.rkamradt-platform:8080
+      stripPrefix: true
