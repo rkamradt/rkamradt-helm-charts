@@ -28,6 +28,12 @@ env:
     value: "axon-server.axon-server.svc.cluster.local:8124"
   - name: MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE
     value: "health,info,metrics,prometheus"
+  - name: SPRING_DATASOURCE_URL
+    value: "jdbc:postgresql://postgresql.postgresql.svc.cluster.local:5432/vehicleevents"
+  - name: SPRING_DATASOURCE_USERNAME
+    value: "vehicle_user"
+  - name: SPRING_DATASOURCE_PASSWORD
+    value: "vehicle_pass"
 
 livenessProbe:
   httpGet:
