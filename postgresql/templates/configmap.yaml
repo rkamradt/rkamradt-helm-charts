@@ -29,6 +29,9 @@ data:
         \$\$;
         GRANT ALL PRIVILEGES ON DATABASE {{ .database }} TO {{ .name }};
     EOSQL
+    psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "{{ .database }}" <<-EOSQL
+        GRANT ALL ON SCHEMA public TO {{ .name }};
+    EOSQL
     echo "User {{ .name }} created/updated and granted privileges on {{ .database }}"
     {{- end }}
 
