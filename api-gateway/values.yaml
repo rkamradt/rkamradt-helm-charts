@@ -17,7 +17,7 @@ auth0:
   domain: randyk.us.auth0.com
   audience: https://api.kamradtfamily.net
 
-corsOrigins: "https://clodapp.kamradtfamily.net,https://architect.kamradtfamily.net"
+corsOrigins: "https://clodapp.kamradtfamily.net,https://architect.kamradtfamily.net,https://fintech.kamradtfamily.net"
 
 resources:
   requests:
@@ -49,4 +49,10 @@ routes: |
       stripPrefix: true
     - prefix: /users
       upstream: http://user-service.fintech:8081
+      stripPrefix: false
+    - prefix: /accounts
+      upstream: http://account-service.fintech:8081
+      stripPrefix: false
+    - prefix: /transactions
+      upstream: http://transaction-service.fintech:8082
       stripPrefix: false

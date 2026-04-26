@@ -57,3 +57,7 @@ apps:
     path: user-service
     namespace: fintech
     versionValuesFile: version-values.yaml
+  - name: fintech-ui
+    path: fintech-ui
+    namespace: fintech
+    versionValuesFile: version-values.yaml
