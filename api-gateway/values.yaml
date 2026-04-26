@@ -47,3 +47,6 @@ routes: |
     - prefix: /architect
       upstream: http://architectai-api.rkamradt-platform:8080
       stripPrefix: true
+    - prefix: /users
+      upstream: http://user-service.fintech:8081
+      stripPrefix: false

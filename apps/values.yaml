@@ -45,3 +45,15 @@ apps:
     path: architectai-api
     namespace: rkamradt-platform
     versionValuesFile: version-values.yaml
+  - name: account-service
+    path: account-service
+    namespace: fintech
+    versionValuesFile: version-values.yaml
+  - name: transaction-service
+    path: transaction-service
+    namespace: fintech
+    versionValuesFile: version-values.yaml
+  - name: user-service
+    path: user-service
+    namespace: fintech
+    versionValuesFile: version-values.yaml
