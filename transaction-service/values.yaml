@@ -17,6 +17,10 @@ env:
   ACCOUNT_SERVICE_URL: http://account-service.fintech:8081
   USER_SERVICE_URL: http://user-service.fintech:8081
 
+startupProbe:
+  failureThreshold: 30
+  periodSeconds: 10
+
 resources:
   requests:
     memory: 128Mi

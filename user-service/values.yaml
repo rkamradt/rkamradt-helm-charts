@@ -13,6 +13,10 @@ service:
   port: 8081
   targetPort: 8081
 
+startupProbe:
+  failureThreshold: 30
+  periodSeconds: 10
+
 resources:
   requests:
     memory: 128Mi
