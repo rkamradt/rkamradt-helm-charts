@@ -13,9 +13,15 @@ service:
   port: 8082
   targetPort: 8082
 
+envSecret: transaction-service-secret
+
 env:
   ACCOUNT_SERVICE_URL: http://account-service.fintech:8081
   USER_SERVICE_URL: http://user-service.fintech:8081
+  SPRING_DATASOURCE_URL: jdbc:postgresql://postgresql.postgresql:5432/transactiondb
+  SPRING_DATASOURCE_DRIVER: org.postgresql.Driver
+  SPRING_DATASOURCE_USERNAME: transaction_user
+  SPRING_JPA_PLATFORM: org.hibernate.dialect.PostgreSQLDialect
 
 startupProbe:
   failureThreshold: 30

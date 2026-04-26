@@ -13,8 +13,14 @@ service:
   port: 8081
   targetPort: 8081
 
+envSecret: account-service-secret
+
 env:
   KAFKA_BOOTSTRAP_SERVERS: kafka.kafka:9092
+  SPRING_DATASOURCE_URL: jdbc:postgresql://postgresql.postgresql:5432/accountdb
+  SPRING_DATASOURCE_DRIVER: org.postgresql.Driver
+  SPRING_DATASOURCE_USERNAME: account_user
+  SPRING_JPA_PLATFORM: org.hibernate.dialect.PostgreSQLDialect
 
 startupProbe:
   failureThreshold: 30

@@ -13,6 +13,14 @@ service:
   port: 8081
   targetPort: 8081
 
+envSecret: user-service-secret
+
+env:
+  SPRING_DATASOURCE_URL: jdbc:postgresql://postgresql.postgresql:5432/userdb
+  SPRING_DATASOURCE_DRIVER: org.postgresql.Driver
+  SPRING_DATASOURCE_USERNAME: user_user
+  SPRING_JPA_PLATFORM: org.hibernate.dialect.PostgreSQLDialect
+
 startupProbe:
   failureThreshold: 30
   periodSeconds: 10

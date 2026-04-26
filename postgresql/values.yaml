@@ -25,6 +25,9 @@ initdb:
   databases:
     - manufacturing
     - vehicleevents
+    - accountdb
+    - transactiondb
+    - userdb
   users:
     - name: manufacturing_user
       password: manufacturing_pass
@@ -32,6 +35,15 @@ initdb:
     - name: vehicle_user
       password: vehicle_pass
       database: vehicleevents
+    - name: account_user
+      password: account_pass
+      database: accountdb
+    - name: transaction_user
+      password: transaction_pass
+      database: transactiondb
+    - name: user_user
+      password: user_pass
+      database: userdb
 
 storage:
   size: 10Gi
