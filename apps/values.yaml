@@ -61,3 +61,11 @@ apps:
     path: fintech-ui
     namespace: fintech
     versionValuesFile: version-values.yaml
+  - name: simcity-frontend
+    path: simcity-frontend
+    namespace: simcity-lite
+    versionValuesFile: version-values.yaml
+  - name: simcity-backend
+    path: simcity-backend
+    namespace: simcity-lite
+    versionValuesFile: version-values.yaml
