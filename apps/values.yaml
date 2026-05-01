@@ -11,8 +11,14 @@ apps:
   - name: mongodb
     path: mongodb
     namespace: mongodb
+  - name: mongo-express
+    path: mongo-express
+    namespace: mongodb
   - name: postgresql
     path: postgresql
+    namespace: postgresql
+  - name: pgadmin
+    path: pgadmin
     namespace: postgresql
   - name: manufacturing-service
     path: manufacturing-service

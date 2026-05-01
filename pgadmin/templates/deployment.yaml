@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pgadmin
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: pgadmin
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: pgadmin
+  template:
+    metadata:
+      labels:
+        app: pgadmin
+    spec:
+      containers:
+        - name: pgadmin
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: 80
+          env:
+            - name: PGADMIN_DEFAULT_EMAIL
+              value: {{ .Values.auth.email }}
+            - name: PGADMIN_DEFAULT_PASSWORD
+              value: {{ .Values.auth.password }}
+          volumeMounts:
+            - name: servers-config
+              mountPath: /pgadmin4/servers.json
+              subPath: servers.json
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      volumes:
+        - name: servers-config
+          configMap:
+            name: pgadmin-servers
