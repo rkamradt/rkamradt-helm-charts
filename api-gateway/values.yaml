@@ -56,6 +56,6 @@ routes: |
     - prefix: /transactions
       upstream: http://transaction-service.fintech:8082
       stripPrefix: false
-    - prefix: /api/cities
+    - prefix: /simcity
       upstream: http://simcity-backend.simcity-lite:8080
-      stripPrefix: false
+      stripPrefix: true
