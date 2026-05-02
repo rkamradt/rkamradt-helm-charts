@@ -1,0 +1,6 @@
+apiVersion: v2
+name: grafana
+description: Observability UI for logs (Loki) and metrics (Prometheus)
+type: application
+version: 1.0.0
+appVersion: "10.4.2"

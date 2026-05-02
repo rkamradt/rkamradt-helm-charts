@@ -2,6 +2,15 @@ repoURL: https://github.com/rkamradt/rkamradt-helm-charts
 targetRevision: main
 
 apps:
+  - name: loki
+    path: loki
+    namespace: monitoring
+  - name: promtail
+    path: promtail
+    namespace: monitoring
+  - name: grafana
+    path: grafana
+    namespace: monitoring
   - name: axon-server
     path: axon-server
     namespace: axon-server
