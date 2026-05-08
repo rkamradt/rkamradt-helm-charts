@@ -14,10 +14,10 @@ service:
   targetPort: 8080
 
 auth0:
-  domain: randyk.us.auth0.com
+  domain: randyk.auth0.com
   audience: https://api.kamradtfamily.net
 
-corsOrigins: "https://clodapp.kamradtfamily.net,https://architect.kamradtfamily.net,https://fintech.kamradtfamily.net,https://simcity.kamradtfamily.net"
+corsOrigins: "https://clodapp.kamradtfamily.net,https://architect.kamradtfamily.net,https://fintech.kamradtfamily.net,https://simcity.kamradtfamily.net,https://blackbook.kamradtfamily.net,https://javaman.kamradtfamily.net"
 
 resources:
   requests:
@@ -58,4 +58,13 @@ routes: |
       stripPrefix: false
     - prefix: /simcity
       upstream: http://simcity-backend.simcity-lite:8080
+      stripPrefix: true
+    - prefix: /javaman
+      upstream: http://javaman.javaman:3001
+      stripPrefix: true
+    - prefix: /blackbook
+      upstream: http://blackbook-read-profile.blackbook:8080
+      stripPrefix: true
+    - prefix: /readnews
+      upstream: http://readnews.nr:8080
       stripPrefix: true

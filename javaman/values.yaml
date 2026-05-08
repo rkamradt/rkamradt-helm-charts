@@ -1,0 +1,22 @@
+replicaCount: 1
+
+image:
+  repository: ghcr.io/rkamradt/javaman
+  tag: "main"
+  pullPolicy: Always
+
+imagePullSecrets:
+  - name: ghcr-secret
+
+service:
+  type: ClusterIP
+  port: 3001
+  targetPort: 3001
+
+resources:
+  requests:
+    memory: 64Mi
+    cpu: 25m
+  limits:
+    memory: 256Mi
+    cpu: 250m
