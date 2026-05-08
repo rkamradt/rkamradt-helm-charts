@@ -1,0 +1,29 @@
+replicaCount: 1
+
+image:
+  repository: ghcr.io/rkamradt/blackbook-read-profile
+  tag: "main"
+  pullPolicy: Always
+
+imagePullSecrets:
+  - name: ghcr-secret
+
+service:
+  type: ClusterIP
+  port: 8080
+  targetPort: 3000
+
+# Secret must contain MONGO_USER and MONGO_PASS
+envSecret: blackbook-mongo-secret
+
+env:
+  MONGO_SERVER: mongodb.blackbook
+  MONGO_PORT: "27017"
+
+resources:
+  requests:
+    memory: 64Mi
+    cpu: 25m
+  limits:
+    memory: 256Mi
+    cpu: 250m

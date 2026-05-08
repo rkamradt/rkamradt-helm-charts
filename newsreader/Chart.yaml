@@ -1,0 +1,6 @@
+apiVersion: v2
+name: newsreader
+description: NewsReader CronJob — fetches and stores news headlines on a schedule
+type: application
+version: 0.1.0
+appVersion: "latest"

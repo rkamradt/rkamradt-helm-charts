@@ -1,0 +1,33 @@
+replicaCount: 1
+
+image:
+  repository: ghcr.io/rkamradt/readnews
+  tag: "main"
+  pullPolicy: Always
+
+imagePullSecrets:
+  - name: ghcr-secret
+
+service:
+  type: ClusterIP
+  port: 8080
+  targetPort: 8080
+
+# Secret must contain MONGO_USER and MONGO_PASS
+envSecret: readnews-mongo-secret
+
+env:
+  MONGO_HOST: mongodb.nr
+  MONGO_PORT: "27017"
+
+startupProbe:
+  failureThreshold: 30
+  periodSeconds: 10
+
+resources:
+  requests:
+    memory: 128Mi
+    cpu: 50m
+  limits:
+    memory: 512Mi
+    cpu: 250m

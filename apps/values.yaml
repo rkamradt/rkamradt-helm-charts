@@ -84,3 +84,33 @@ apps:
     path: simcity-backend
     namespace: simcity-lite
     versionValuesFile: version-values.yaml
+  - name: blackbook-mongodb
+    path: mongodb
+    namespace: blackbook
+  - name: blackbook
+    path: blackbook
+    namespace: blackbook
+    versionValuesFile: version-values.yaml
+  - name: blackbook-read-profile
+    path: blackbook-read-profile
+    namespace: blackbook
+    versionValuesFile: version-values.yaml
+  - name: news-mongodb
+    path: mongodb
+    namespace: nr
+  - name: readnews
+    path: readnews
+    namespace: nr
+    versionValuesFile: version-values.yaml
+  - name: readnewsblock
+    path: readnewsblock
+    namespace: nr
+    versionValuesFile: version-values.yaml
+  - name: readnewsgo
+    path: readnewsgo
+    namespace: nr
+    versionValuesFile: version-values.yaml
+  - name: newsreader
+    path: newsreader
+    namespace: nr
+    versionValuesFile: version-values.yaml

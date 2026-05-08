@@ -1,0 +1,29 @@
+replicaCount: 1
+
+image:
+  repository: ghcr.io/rkamradt/go-go-go
+  tag: "main"
+  pullPolicy: Always
+
+imagePullSecrets:
+  - name: ghcr-secret
+
+service:
+  type: ClusterIP
+  port: 8080
+  targetPort: 8080
+
+# Secret must contain MONGO_USER and MONGO_PASS
+envSecret: readnews-mongo-secret
+
+env:
+  MONGO_HOST: mongodb.nr
+  MONGO_PORT: "27017"
+
+resources:
+  requests:
+    memory: 32Mi
+    cpu: 25m
+  limits:
+    memory: 128Mi
+    cpu: 250m

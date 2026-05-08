@@ -1,0 +1,6 @@
+apiVersion: v2
+name: blackbook-read-profile
+description: Blackbook read-side profile API (Node.js/Express + MongoDB)
+type: application
+version: 0.1.0
+appVersion: "latest"
