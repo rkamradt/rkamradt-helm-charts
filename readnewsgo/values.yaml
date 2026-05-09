@@ -17,7 +17,7 @@ service:
 envSecret: readnews-mongo-secret
 
 env:
-  MONGO_HOST: mongodb.nr
+  MONGO_HOST: mongodb.mongodb
   MONGO_PORT: "27017"
 
 resources:
