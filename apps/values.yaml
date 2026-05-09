@@ -108,6 +108,10 @@ apps:
     path: newsreader
     namespace: nr
     versionValuesFile: version-values.yaml
+  - name: naivefront
+    path: naivefront
+    namespace: naivefront
+    versionValuesFile: version-values.yaml
   - name: javaman
     path: javaman
     namespace: javaman
