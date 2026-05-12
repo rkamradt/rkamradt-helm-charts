@@ -104,10 +104,6 @@ apps:
     path: readnewsgo
     namespace: nr
     versionValuesFile: version-values.yaml
-  - name: newsreader
-    path: newsreader
-    namespace: nr
-    versionValuesFile: version-values.yaml
   - name: naivefront
     path: naivefront
     namespace: naivefront
