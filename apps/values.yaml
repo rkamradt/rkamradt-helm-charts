@@ -17,6 +17,9 @@ apps:
   - name: kafka
     path: kafka
     namespace: kafka
+  - name: minio
+    path: minio
+    namespace: minio
   - name: mongodb
     path: mongodb
     namespace: mongodb
