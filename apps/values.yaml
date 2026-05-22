@@ -63,6 +63,10 @@ apps:
     path: architectai-api
     namespace: rkamradt-platform
     versionValuesFile: version-values.yaml
+  - name: github-provider
+    path: github-provider
+    namespace: rkamradt-platform
+    versionValuesFile: version-values.yaml
   - name: account-service
     path: account-service
     namespace: fintech
