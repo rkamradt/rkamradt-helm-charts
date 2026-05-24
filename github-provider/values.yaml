@@ -13,15 +13,15 @@ service:
   port: 3002
   targetPort: 3002
 
-# github-provider-secrets must contain:
+# github-provider-config (ConfigMap) must contain:
 #   KAFKA_BROKERS, MINIO_BUCKET, GITHUB_POLL_INTERVAL_MS, GITHUB_MAX_POLL_ATTEMPTS
-# minio-config must contain:
+# minio-config (Secret) must contain:
 #   MINIO_ENDPOINT, MINIO_ACCESS_KEY, MINIO_SECRET_KEY
-# mongo-config must contain:
+# mongo-config (Secret) must contain:
 #   MONGODB_URI
 envFrom:
-  - secretRef:
-      name: github-provider-secrets
+  - configMapRef:
+      name: github-provider-config
   - secretRef:
       name: minio-config
   - secretRef:
