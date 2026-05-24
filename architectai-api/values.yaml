@@ -13,9 +13,19 @@ service:
   port: 8080
   targetPort: 8080
 
+# architectai-api-secrets must contain:
+#   AUTH0_ISSUER_BASE_URL, AUTH0_AUDIENCE, FRONTEND_URL, KAFKA_BROKERS, MINIO_BUCKET, PORT
+# minio-config must contain:
+#   MINIO_ENDPOINT, MINIO_ACCESS_KEY, MINIO_SECRET_KEY
+# mongo-config must contain:
+#   MONGODB_URI
 envFrom:
   - secretRef:
       name: architectai-api-secrets
+  - secretRef:
+      name: minio-config
+  - secretRef:
+      name: mongo-config
 
 resources:
   requests:
