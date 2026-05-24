@@ -13,12 +13,14 @@ service:
   port: 3002
   targetPort: 3002
 
-# github-provider-config (ConfigMap) must contain:
-#   KAFKA_BROKERS, MINIO_BUCKET, GITHUB_POLL_INTERVAL_MS, GITHUB_MAX_POLL_ATTEMPTS
-# minio-config (Secret) must contain:
-#   MINIO_ENDPOINT, MINIO_ACCESS_KEY, MINIO_SECRET_KEY
-# mongo-config (Secret) must contain:
-#   MONGODB_URI
+# Non-sensitive config rendered into a ConfigMap by this chart.
+# Secrets (minio-config, mongo-config) must be created separately.
+config:
+  KAFKA_BROKERS: kafka.kafka.svc.cluster.local:9092
+  MINIO_BUCKET: architectai-builds
+  GITHUB_POLL_INTERVAL_MS: "10000"
+  GITHUB_MAX_POLL_ATTEMPTS: "30"
+
 envFrom:
   - configMapRef:
       name: github-provider-config

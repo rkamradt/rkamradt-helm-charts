@@ -13,12 +13,15 @@ service:
   port: 8080
   targetPort: 8080
 
-# architectai-api-config (ConfigMap) must contain:
-#   AUTH0_ISSUER_BASE_URL, AUTH0_AUDIENCE, FRONTEND_URL, KAFKA_BROKERS, MINIO_BUCKET
-# minio-config (Secret) must contain:
-#   MINIO_ENDPOINT, MINIO_ACCESS_KEY, MINIO_SECRET_KEY
-# mongo-config (Secret) must contain:
-#   MONGODB_URI
+# Non-sensitive config rendered into a ConfigMap by this chart.
+# Secrets (minio-config, mongo-config) must be created separately.
+config:
+  AUTH0_ISSUER_BASE_URL: https://randyk.us.auth0.com/
+  AUTH0_AUDIENCE: https://api.kamradtfamily.net
+  FRONTEND_URL: https://architect.kamradtfamily.net
+  KAFKA_BROKERS: kafka.kafka.svc.cluster.local:9092
+  MINIO_BUCKET: architectai-builds
+
 envFrom:
   - configMapRef:
       name: architectai-api-config
