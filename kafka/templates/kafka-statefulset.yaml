@@ -33,7 +33,7 @@ spec:
           value: "zookeeper:2181"
         # Must set KAFKA_ADVERTISED_LISTENERS before KAFKA_LISTENERS to avoid deprecation warnings
         - name: KAFKA_ADVERTISED_LISTENERS
-          value: "PLAINTEXT://kafka:9092,INTERNAL://kafka-headless:9093"
+          value: "PLAINTEXT://kafka.kafka.svc.cluster.local:9092,INTERNAL://kafka-headless:9093"
         - name: KAFKA_LISTENERS
           value: "PLAINTEXT://0.0.0.0:9092,INTERNAL://0.0.0.0:9093"
         - name: KAFKA_LISTENER_SECURITY_PROTOCOL_MAP
