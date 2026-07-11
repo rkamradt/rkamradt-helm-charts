@@ -1,0 +1,6 @@
+apiVersion: v2
+name: dccex-throttle
+description: DCC-EX browser throttle with WebSocket-to-TCP proxy
+type: application
+version: 0.1.0
+appVersion: "1.0"
