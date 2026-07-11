@@ -13,12 +13,6 @@ service:
   port: 3000
   targetPort: 3000
 
-ingress:
-  enabled: true
-  # Update to your actual Cloudflare-tunnelled hostname
-  hostname: dccex.rkamradt.dev
-  ingressClassName: traefik
-
 resources:
   requests:
     memory: "64Mi"
