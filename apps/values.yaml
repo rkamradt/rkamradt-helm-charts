@@ -123,3 +123,6 @@ apps:
     path: javaman-client
     namespace: javaman
     versionValuesFile: version-values.yaml
+  - name: dccex-throttle
+    path: dccex-throttle
+    namespace: dccex-throttle
