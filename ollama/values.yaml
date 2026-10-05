@@ -27,7 +27,6 @@ resources:
     cpu: "2000m"
   limits:
     memory: "6Gi"
-    cpu: "8000m"
 
 env:
   - name: OLLAMA_KEEP_ALIVE
