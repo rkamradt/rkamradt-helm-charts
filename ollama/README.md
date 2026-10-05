@@ -36,11 +36,13 @@ The PVC is 5 Gi; a second 3–4 B Q4 model (~2 GB) fits comfortably.
 
 ## Observed performance (servy, 24-core CPU, no GPU)
 
-| Model                        | Prompt tokens | Completion tokens | tokens/sec |
-|------------------------------|---------------|-------------------|------------|
-| llama3.2:3b-instruct-q4_K_M  | ~50           | ~100              | TBD        |
+| Model                        | Prompt tokens | Completion tokens | tokens/sec | time-to-first-token |
+|------------------------------|---------------|-------------------|------------|---------------------|
+| llama3.2:3b-instruct-q4_K_M  | 34            | 417               | 3.2        | 0.28 s              |
 
-_Run the smoke-test pod in the repo README to fill in the TBD row._
+Measured 2026-10-05 via `/api/generate` from a pod in the `default` namespace.
+At 3.2 t/s a 100-token idea-loop completion takes ~30 s — well within the
+"call every few minutes" budget.
 
 ## Resource sizing
 
