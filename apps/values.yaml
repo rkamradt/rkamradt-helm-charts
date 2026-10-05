@@ -126,3 +126,6 @@ apps:
   - name: dccex-throttle
     path: dccex-throttle
     namespace: dccex-throttle
+  - name: ollama
+    path: ollama
+    namespace: llm
