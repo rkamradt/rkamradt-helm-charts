@@ -129,3 +129,11 @@ apps:
   - name: ollama
     path: ollama
     namespace: llm
+  - name: portfolio
+    path: portfolio
+    namespace: portfolio
+    versionValuesFile: version-values.yaml
+  - name: home
+    path: home
+    namespace: home
+    versionValuesFile: version-values.yaml
