@@ -137,3 +137,7 @@ apps:
     path: home
     namespace: home
     versionValuesFile: version-values.yaml
+  - name: k8s-dashboard
+    path: k8s-dashboard
+    namespace: k8s-dashboard
+    versionValuesFile: version-values.yaml

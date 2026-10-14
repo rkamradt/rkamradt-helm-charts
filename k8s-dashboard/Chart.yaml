@@ -1,0 +1,6 @@
+apiVersion: v2
+name: k8s-dashboard
+description: Read-only Kubernetes cluster dashboard — no auth required
+type: application
+version: 0.1.0
+appVersion: "latest"
