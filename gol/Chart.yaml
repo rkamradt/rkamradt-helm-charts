@@ -1,0 +1,6 @@
+apiVersion: v2
+name: gol
+description: Conway's Game of Life — interactive showcase
+type: application
+version: 0.1.0
+appVersion: "latest"

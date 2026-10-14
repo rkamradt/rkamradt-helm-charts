@@ -141,3 +141,7 @@ apps:
     path: k8s-dashboard
     namespace: k8s-dashboard
     versionValuesFile: version-values.yaml
+  - name: gol
+    path: gol
+    namespace: gol
+    versionValuesFile: version-values.yaml
