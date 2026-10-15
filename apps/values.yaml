@@ -145,3 +145,7 @@ apps:
     path: gol
     namespace: gol
     versionValuesFile: version-values.yaml
+  - name: cluster-ops-agent
+    path: cluster-ops-agent
+    namespace: cluster-ops-agent
+    versionValuesFile: version-values.yaml

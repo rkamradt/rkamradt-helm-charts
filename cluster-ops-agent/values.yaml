@@ -1,0 +1,41 @@
+replicaCount: 1
+
+image:
+  repository: ghcr.io/rkamradt/cluster-ops-agent
+  tag: "latest"
+  pullPolicy: Always
+
+imagePullSecrets:
+  - name: ghcr-secret
+
+service:
+  type: ClusterIP
+  port: 8000
+  targetPort: 8000
+
+# SQLite checkpointer PVC
+persistence:
+  enabled: true
+  storageClass: "local-path"
+  size: 100Mi
+  mountPath: /data
+
+env:
+  OLLAMA_URL: "http://ollama.llm.svc.cluster.local:11434"
+  OLLAMA_MODEL: "llama3.2:3b-instruct-q4_K_M"
+  OLLAMA_TIMEOUT: "120"
+  NAMESPACE_ALLOWLIST: "home,k8s-dashboard,gol,portfolio,llm,cluster-ops-agent"
+  MAX_STEPS: "6"
+  DB_PATH: "/data/checkpoints.db"
+  RATE_LIMIT_MAX: "20"
+  RATE_LIMIT_WINDOW_SEC: "3600"
+  MAX_QUESTION_LEN: "500"
+
+# Higher memory for Python + LangGraph + model context
+resources:
+  requests:
+    memory: 256Mi
+    cpu: 50m
+  limits:
+    memory: 512Mi
+    cpu: 500m

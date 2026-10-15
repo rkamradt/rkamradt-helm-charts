@@ -1,0 +1,17 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: {{ .Chart.Name }}-reader
+  labels:
+    app: {{ .Chart.Name }}
+rules:
+  # Pod inspection and logs — the agent's primary data source
+  - apiGroups: [""]
+    resources: ["pods", "pods/log", "events", "namespaces"]
+    verbs: ["get", "list", "watch"]
+  # ArgoCD application status via CRD (no ArgoCD API token required)
+  - apiGroups: ["argoproj.io"]
+    resources: ["applications"]
+    verbs: ["get", "list", "watch"]
+  # Explicitly excluded (not listed = denied by RBAC):
+  #   secrets, configmaps, services, deployments, nodes, exec, port-forward

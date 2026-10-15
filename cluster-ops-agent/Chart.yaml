@@ -1,0 +1,6 @@
+apiVersion: v2
+name: cluster-ops-agent
+description: Read-only LangGraph AI agent for K3s cluster operations — agent.kamradtfamily.net
+type: application
+version: 0.1.0
+appVersion: "latest"
