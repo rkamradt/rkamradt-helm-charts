@@ -1,0 +1,34 @@
+replicaCount: 1
+
+image:
+  repository: ghcr.io/rkamradt/receipts
+  tag: "latest"
+  pullPolicy: Always
+
+imagePullSecrets:
+  - name: ghcr-secret
+
+service:
+  type: ClusterIP
+  port: 8080
+  targetPort: 8080
+
+# Kubernetes secret that must be created manually in the receipts namespace.
+# Required keys: GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, ANTHROPIC_API_KEY,
+#                SHEET_ID, DRIVE_FOLDER_ID
+# Optional keys: SHEET_TAB (default: Receipts), ANTHROPIC_MODEL
+envSecret: receipts-secret
+
+# Spring Boot + JVM needs more memory than the Node.js baseline
+resources:
+  requests:
+    memory: 256Mi
+    cpu: 50m
+  limits:
+    memory: 512Mi
+    cpu: 500m
+
+# Slow JVM startup — probe gives up to 5 minutes before giving up
+startupProbe:
+  failureThreshold: 60
+  periodSeconds: 5
