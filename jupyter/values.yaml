@@ -1,0 +1,36 @@
+replicaCount: 1
+
+image:
+  repository: quay.io/jupyter/scipy-notebook
+  tag: "latest"
+  pullPolicy: IfNotPresent   # public image, no ghcr-secret needed
+
+service:
+  type: ClusterIP
+  port: 8888
+  targetPort: 8888
+
+persistence:
+  enabled: true
+  storageClass: "local-path"
+  size: 1Gi
+  mountPath: /home/jovyan/work
+
+# Disable token auth — internal port-forward only, no external exposure
+env:
+  JUPYTER_TOKEN: ""
+  JUPYTER_ENABLE_LAB: "yes"
+
+# jovyan runs as uid=1000 gid=100; fsGroup ensures PVC is group-writable
+podSecurityContext:
+  fsGroup: 100
+  runAsUser: 1000
+  runAsGroup: 100
+
+resources:
+  requests:
+    memory: 256Mi
+    cpu: 100m
+  limits:
+    memory: 1Gi
+    cpu: 1000m

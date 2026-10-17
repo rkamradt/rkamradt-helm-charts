@@ -153,3 +153,6 @@ apps:
     path: receipts
     namespace: receipts
     versionValuesFile: version-values.yaml
+  - name: jupyter
+    path: jupyter
+    namespace: jupyter
