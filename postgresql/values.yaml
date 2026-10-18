@@ -28,6 +28,7 @@ initdb:
     - accountdb
     - transactiondb
     - userdb
+    - keycloakdb
   users:
     - name: manufacturing_user
       password: manufacturing_pass
@@ -44,6 +45,9 @@ initdb:
     - name: user_user
       password: user_pass
       database: userdb
+    - name: keycloak_user
+      password: keycloak_pass
+      database: keycloakdb
 
 storage:
   size: 10Gi

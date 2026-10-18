@@ -1,0 +1,53 @@
+replicaCount: 1
+
+image:
+  # Check https://quay.io/repository/keycloak/keycloak?tab=tags for latest
+  repository: quay.io/keycloak/keycloak
+  tag: "26.1"
+  pullPolicy: IfNotPresent
+
+# No imagePullSecrets — public image
+
+service:
+  type: ClusterIP
+  port: 8080
+  targetPort: 8080
+
+# Non-sensitive configuration passed as environment variables.
+# KC_DB_PASSWORD and KEYCLOAK_ADMIN_PASSWORD come from envSecret.
+env:
+  KC_DB: postgres
+  KC_DB_URL: "jdbc:postgresql://postgresql.postgresql.svc.cluster.local:5432/keycloakdb"
+  KC_DB_USERNAME: keycloak_user
+  KC_HOSTNAME: "auth.kamradtfamily.net"
+  KC_HTTP_ENABLED: "true"
+  KC_HTTP_PORT: "8080"
+  KC_PROXY_HEADERS: xforwarded
+  KC_HOSTNAME_STRICT: "false"
+  KC_HEALTH_ENABLED: "true"
+  KC_MANAGEMENT_PORT: "9000"
+  KC_LOG_LEVEL: INFO
+  KEYCLOAK_ADMIN: admin
+
+# External secret — must be created in the keycloak namespace before deployment:
+#
+#   kubectl create secret generic keycloak-secret -n keycloak \
+#     --from-literal=KC_DB_PASSWORD=<postgres-keycloak-user-password> \
+#     --from-literal=KEYCLOAK_ADMIN_PASSWORD=<admin-console-password>
+#
+envSecret: keycloak-secret
+
+# Keycloak runs a build phase at startup (~60s) then the server itself.
+# 90 * 5s = 7.5 minutes max before pod is marked failed.
+startupProbe:
+  failureThreshold: 90
+  periodSeconds: 5
+
+# Keycloak is a Java service — needs more headroom than typical Node.js services.
+resources:
+  requests:
+    memory: "512Mi"
+    cpu: "100m"
+  limits:
+    memory: "1Gi"
+    cpu: "1000m"

@@ -29,6 +29,9 @@ apps:
   - name: postgresql
     path: postgresql
     namespace: postgresql
+  - name: keycloak
+    path: keycloak
+    namespace: keycloak
   - name: pgadmin
     path: pgadmin
     namespace: postgresql
