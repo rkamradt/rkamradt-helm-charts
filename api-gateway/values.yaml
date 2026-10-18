@@ -13,9 +13,9 @@ service:
   port: 8080
   targetPort: 8080
 
-auth0:
-  domain: randyk.us.auth0.com
-  audience: https://api.kamradtfamily.net
+keycloak:
+  jwksUrl: "https://auth.kamradtfamily.net/realms/rkamradt/protocol/openid-connect/certs"
+  issuer: "https://auth.kamradtfamily.net/realms/rkamradt"
 
 corsOrigins: "https://clodapp.kamradtfamily.net,https://architect.kamradtfamily.net,https://fintech.kamradtfamily.net,https://simcity.kamradtfamily.net,https://blackbook.kamradtfamily.net,https://javaman.kamradtfamily.net,https://naivecoin.kamradtfamily.net"
 

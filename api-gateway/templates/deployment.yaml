@@ -28,10 +28,10 @@ spec:
           ports:
             - containerPort: {{ .Values.service.targetPort }}
           env:
-            - name: AUTH0_DOMAIN
-              value: {{ .Values.auth0.domain | quote }}
-            - name: AUTH0_AUDIENCE
-              value: {{ .Values.auth0.audience | quote }}
+            - name: JWKS_URL
+              value: {{ .Values.keycloak.jwksUrl | quote }}
+            - name: OIDC_ISSUER
+              value: {{ .Values.keycloak.issuer | quote }}
             - name: CORS_ORIGINS
               value: {{ .Values.corsOrigins | quote }}
             - name: ROUTES_FILE
