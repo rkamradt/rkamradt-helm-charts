@@ -29,6 +29,7 @@ initdb:
     - transactiondb
     - userdb
     - keycloakdb
+    - javamandb
   users:
     - name: manufacturing_user
       password: manufacturing_pass
@@ -48,6 +49,9 @@ initdb:
     - name: keycloak_user
       password: keycloak_pass
       database: keycloakdb
+    - name: javaman_user
+      password: javaman_pass
+      database: javamandb
 
 storage:
   size: 10Gi

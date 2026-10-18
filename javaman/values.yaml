@@ -13,6 +13,10 @@ service:
   port: 3001
   targetPort: 3001
 
+# kubectl create secret generic javaman-secret -n javaman \
+#   --from-literal=DATABASE_URL='postgresql://javaman_user:<password>@postgresql.postgresql.svc.cluster.local:5432/javamandb'
+envSecret: javaman-secret
+
 resources:
   requests:
     memory: 64Mi
