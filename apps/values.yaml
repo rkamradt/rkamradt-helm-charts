@@ -165,3 +165,6 @@ apps:
   - name: infisical
     path: infisical
     namespace: infisical
+  - name: outline
+    path: outline
+    namespace: outline

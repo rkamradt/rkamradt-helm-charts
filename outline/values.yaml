@@ -1,0 +1,43 @@
+replicaCount: 1
+
+image:
+  repository: outlinewiki/outline
+  tag: "latest"
+  pullPolicy: Always
+
+service:
+  type: ClusterIP
+  port: 3000
+  targetPort: 3000
+
+# kubectl create secret generic outline-secret -n outline \
+#   --from-literal=SECRET_KEY="$(openssl rand -hex 32)" \
+#   --from-literal=UTILS_SECRET="$(openssl rand -hex 32)" \
+#   --from-literal=DATABASE_URL='postgres://outline_user:<pw>@postgresql.postgresql.svc.cluster.local:5432/outlinedb' \
+#   --from-literal=REDIS_URL='redis://redis.redis.svc.cluster.local:6379' \
+#   --from-literal=URL='https://docs.kamradtfamily.net' \
+#   --from-literal=PORT='3000' \
+#   --from-literal=FILE_STORAGE='s3' \
+#   --from-literal=AWS_ACCESS_KEY_ID='<minio-access-key>' \
+#   --from-literal=AWS_SECRET_ACCESS_KEY='<minio-secret-key>' \
+#   --from-literal=AWS_REGION='us-east-1' \
+#   --from-literal=AWS_S3_UPLOAD_BUCKET_NAME='outline' \
+#   --from-literal=AWS_S3_UPLOAD_BUCKET_URL='http://minio.minio.svc.cluster.local:9000' \
+#   --from-literal=AWS_S3_FORCE_PATH_STYLE='true' \
+#   --from-literal=OIDC_CLIENT_ID='outline' \
+#   --from-literal=OIDC_CLIENT_SECRET='<keycloak-client-secret>' \
+#   --from-literal=OIDC_AUTH_URI='https://auth.kamradtfamily.net/realms/rkamradt/protocol/openid-connect/auth' \
+#   --from-literal=OIDC_TOKEN_URI='https://auth.kamradtfamily.net/realms/rkamradt/protocol/openid-connect/token' \
+#   --from-literal=OIDC_USERINFO_URI='https://auth.kamradtfamily.net/realms/rkamradt/protocol/openid-connect/userinfo' \
+#   --from-literal=OIDC_USERNAME_CLAIM='email' \
+#   --from-literal=OIDC_DISPLAY_NAME='Keycloak' \
+#   --from-literal=OIDC_SCOPES='openid profile email'
+envSecret: outline-secret
+
+resources:
+  requests:
+    memory: 256Mi
+    cpu: 50m
+  limits:
+    memory: 768Mi
+    cpu: 500m
