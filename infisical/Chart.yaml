@@ -1,0 +1,5 @@
+apiVersion: v2
+name: infisical
+description: Infisical secret manager
+type: application
+version: 0.1.0
