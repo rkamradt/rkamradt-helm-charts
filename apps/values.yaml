@@ -70,6 +70,14 @@ apps:
     path: github-provider
     namespace: rkamradt-platform
     versionValuesFile: version-values.yaml
+  - name: arch-code-gen
+    path: arch-code-gen
+    namespace: rkamradt-platform
+    versionValuesFile: version-values.yaml
+  - name: arch-test-gen
+    path: arch-test-gen
+    namespace: rkamradt-platform
+    versionValuesFile: version-values.yaml
   - name: account-service
     path: account-service
     namespace: fintech

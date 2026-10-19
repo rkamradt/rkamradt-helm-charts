@@ -1,0 +1,38 @@
+replicaCount: 1
+
+image:
+  repository: ghcr.io/rkamradt/arch-code-gen
+  tag: "main"
+  pullPolicy: Always
+
+imagePullSecrets:
+  - name: ghcr-secret
+
+service:
+  type: ClusterIP
+  port: 8000
+  targetPort: 8000
+
+# Non-sensitive config rendered into a ConfigMap.
+# Secrets (minio-config, mongo-config) must be created in the namespace separately.
+config:
+  KAFKA_BROKERS: kafka.kafka.svc.cluster.local:9092
+  MINIO_BUCKET: architectai-builds
+
+envFrom:
+  - configMapRef:
+      name: arch-code-gen-config
+  - secretRef:
+      name: minio-config
+  - secretRef:
+      name: mongo-config
+
+# Higher memory limit than architectai-api: this worker runs the full LangGraph
+# code generation sessions (one per service, Sonnet model, up to 16k tokens each).
+resources:
+  requests:
+    memory: 256Mi
+    cpu: 100m
+  limits:
+    memory: 512Mi
+    cpu: 500m
