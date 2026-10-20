@@ -1,0 +1,6 @@
+apiVersion: v2
+name: job-watch
+description: ATS job board monitor — polls Greenhouse/Ashby/Lever and emails new matches
+type: application
+version: 0.1.0
+appVersion: "latest"

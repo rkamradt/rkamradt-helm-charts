@@ -1,0 +1,41 @@
+image:
+  repository: ghcr.io/rkamradt/job-watch
+  tag: "latest"
+  pullPolicy: Always
+
+imagePullSecrets:
+  - name: ghcr-secret
+
+# CronJob schedule — every 4 hours
+schedule: "0 */4 * * *"
+
+# Name of the Kubernetes Secret containing:
+#   MONGO_URI, GMAIL_USER, GMAIL_APP_PASSWORD, GMAIL_TO
+secretName: job-watch-secrets
+
+# companies.yaml content — rendered into a ConfigMap and mounted at /config/
+# The indented block below is the default; override in a private values file.
+companiesYaml: |
+  companies:
+    - { name: Toast,       ats: greenhouse, slug: toast }
+    - { name: Smartsheet,  ats: greenhouse, slug: smartsheet }
+    - { name: Instacart,   ats: greenhouse, slug: instacart }
+    - { name: Mattermost,  ats: greenhouse, slug: mattermost }
+    - { name: "Hims & Hers", ats: ashby,   slug: hims-and-hers }
+    - { name: Weave,       ats: ashby,      slug: weave }
+
+  filter:
+    title_include: [principal, staff, lead, architect, "senior staff"]
+    title_exclude: [manager, director, intern, "data scientist", sales, recruiter, "business development", emea, apac, latam]
+    boost_keywords: [kafka, kubernetes, "event-driven", platform, java, kotlin, " ai", llm, "machine learning"]
+
+  concurrency_limit: 3
+  request_timeout_sec: 30
+
+resources:
+  requests:
+    memory: 128Mi
+    cpu: 50m
+  limits:
+    memory: 256Mi
+    cpu: 500m
