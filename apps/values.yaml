@@ -144,6 +144,10 @@ apps:
     path: portfolio
     namespace: portfolio
     versionValuesFile: version-values.yaml
+  - name: portfolio-api
+    path: portfolio-api
+    namespace: portfolio-api
+    versionValuesFile: version-values.yaml
   - name: home
     path: home
     namespace: home
@@ -176,3 +180,7 @@ apps:
   - name: outline
     path: outline
     namespace: outline
+  - name: job-watch
+    path: job-watch
+    namespace: job-watch
+    versionValuesFile: version-values.yaml
