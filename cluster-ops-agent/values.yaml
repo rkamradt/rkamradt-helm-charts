@@ -25,6 +25,7 @@ env:
   OLLAMA_MODEL: "llama3.2:3b-instruct-q4_K_M"
   OLLAMA_TIMEOUT: "120"
   NAMESPACE_ALLOWLIST: "home,k8s-dashboard,gol,portfolio,llm,cluster-ops-agent"
+  ARGOCD_APP_ALLOWLIST: "home,k8s-dashboard,gol,portfolio,llm,cluster-ops-agent"
   MAX_STEPS: "6"
   DB_PATH: "/data/checkpoints.db"
   RATE_LIMIT_MAX: "20"

@@ -1,0 +1,37 @@
+{{- /*
+  One Role + RoleBinding per allowlisted namespace.
+  This scopes pod/log access tightly — the SA cannot read logs from
+  keycloak, infisical, postgresql, or any other privileged namespace.
+*/ -}}
+{{- $sa := .Chart.Name -}}
+{{- $saNamespace := .Release.Namespace -}}
+{{- range list "home" "k8s-dashboard" "gol" "portfolio" "llm" "cluster-ops-agent" }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: {{ $sa }}-reader
+  namespace: {{ . }}
+  labels:
+    app: {{ $sa }}
+rules:
+  - apiGroups: [""]
+    resources: ["pods", "pods/log", "events"]
+    verbs: ["get", "list"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: {{ $sa }}-reader
+  namespace: {{ . }}
+  labels:
+    app: {{ $sa }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: {{ $sa }}-reader
+subjects:
+  - kind: ServiceAccount
+    name: {{ $sa }}
+    namespace: {{ $saNamespace }}
+{{- end }}
