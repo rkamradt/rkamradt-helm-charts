@@ -16,8 +16,8 @@ service:
 # Non-sensitive config rendered into a ConfigMap by this chart.
 # Secrets (minio-config, mongo-config) must be created separately.
 config:
-  AUTH0_ISSUER_BASE_URL: https://randyk.us.auth0.com/
-  AUTH0_AUDIENCE: https://api.kamradtfamily.net
+  KEYCLOAK_ISSUER_BASE_URL: https://auth.kamradtfamily.net/realms/rkamradt
+  KEYCLOAK_AUDIENCE: https://api.kamradtfamily.net
   FRONTEND_URL: https://architect.kamradtfamily.net
   KAFKA_BROKERS: kafka.kafka.svc.cluster.local:9092
   MINIO_BUCKET: architectai-builds
