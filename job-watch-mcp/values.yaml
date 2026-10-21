@@ -1,0 +1,32 @@
+replicaCount: 1
+
+image:
+  # Same image as job-watch; CMD is overridden below to start the MCP server.
+  repository: ghcr.io/rkamradt/job-watch
+  tag: "latest"
+  pullPolicy: Always
+
+imagePullSecrets:
+  - name: ghcr-secret
+
+service:
+  type: ClusterIP
+  port: 8000
+  targetPort: 8000
+
+# Name of the Secret that contains MONGO_URI and ANTHROPIC_API_KEY.
+# This is the same secret used by the job-watch CronJob.
+secretName: job-watch-secrets
+
+# Python startup is slow on the single-node CPU-only cluster.
+startupProbe:
+  failureThreshold: 30
+  periodSeconds: 5
+
+resources:
+  requests:
+    memory: 128Mi
+    cpu: 10m
+  limits:
+    memory: 256Mi
+    cpu: 200m

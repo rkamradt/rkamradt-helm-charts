@@ -184,3 +184,7 @@ apps:
     path: job-watch
     namespace: job-watch
     versionValuesFile: version-values.yaml
+  - name: job-watch-mcp
+    path: job-watch-mcp
+    namespace: job-watch
+    versionValuesFile: version-values.yaml
