@@ -188,3 +188,10 @@ apps:
     path: job-watch-mcp
     namespace: job-watch
     versionValuesFile: version-values.yaml
+  - name: priorauth-fhir
+    path: priorauth-fhir
+    namespace: priorauth-fhir
+  - name: priorauth-assist
+    path: priorauth-assist
+    namespace: priorauth-assist
+    versionValuesFile: version-values.yaml
