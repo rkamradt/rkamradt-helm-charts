@@ -195,3 +195,7 @@ apps:
     path: priorauth-assist
     namespace: priorauth-assist
     versionValuesFile: version-values.yaml
+  - name: api-smoke-tests
+    path: api-smoke-tests
+    namespace: api-smoke-tests
+    versionValuesFile: version-values.yaml

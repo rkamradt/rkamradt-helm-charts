@@ -1,0 +1,6 @@
+apiVersion: v2
+name: api-smoke-tests
+description: Periodic in-cluster API smoke tests — CronJob, runs every 30 minutes
+type: application
+version: 0.1.0
+appVersion: "latest"

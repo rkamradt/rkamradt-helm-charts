@@ -1,0 +1,15 @@
+image:
+  repository: ghcr.io/rkamradt/api-smoke-tests
+  tag: "sha-0000000"
+  pullPolicy: Always
+
+schedule: "*/30 * * * *"
+
+env:
+  SMOKE_TIMEOUT: "15"
+  OLLAMA_MODEL: "llama3.2:3b-instruct-q4_K_M"
+
+# Secrets injected as env vars — create with setup-secrets.sh before enabling
+# - secretName: grafana-smoke-secret   (key: GRAFANA_API_KEY)
+# - secretName: minio-smoke-secret     (keys: MINIO_ACCESS_KEY, MINIO_SECRET_KEY)
+secretRefs: []
