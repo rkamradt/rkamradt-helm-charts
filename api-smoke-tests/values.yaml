@@ -12,4 +12,6 @@ env:
 # Secrets injected as env vars — create with setup-secrets.sh before enabling
 # - secretName: grafana-smoke-secret   (key: GRAFANA_API_KEY)
 # - secretName: minio-smoke-secret     (keys: MINIO_ACCESS_KEY, MINIO_SECRET_KEY)
-secretRefs: []
+# - secretName: gmail-smoke-secret     (keys: GMAIL_USER, GMAIL_APP_PASSWORD, GMAIL_TO)
+secretRefs:
+  - secretName: gmail-smoke-secret
