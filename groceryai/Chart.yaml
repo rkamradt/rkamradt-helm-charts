@@ -1,0 +1,6 @@
+apiVersion: v2
+name: groceryai
+description: Weekly grocery nutrition tracker for kamradtfamily.net
+type: application
+version: 0.1.0
+appVersion: "latest"
