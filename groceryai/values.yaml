@@ -16,7 +16,8 @@ service:
 # Kubernetes secret that must be created manually in the groceryai namespace.
 # Required keys: GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, ANTHROPIC_API_KEY,
 #                SHEET_ID
-# Optional keys: SHEET_TAB (default: GroceryAI), ANTHROPIC_MODEL, ANTHROPIC_MAX_TOKENS (default: 4096), USDA_API_KEY
+# Optional keys: SHEET_TAB (default: GroceryAI), ANTHROPIC_MODEL, ANTHROPIC_MAX_TOKENS (default: 4096),
+#                GROCERY_STORE_HINT (default: Shaw's Supermarkets...), USDA_API_KEY
 envSecret: groceryai-secret
 
 # Spring Boot + JVM needs more memory than the Node.js baseline
