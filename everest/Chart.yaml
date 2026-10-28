@@ -1,0 +1,6 @@
+apiVersion: v2
+name: everest
+description: Everest spec-authoring UI — React + Vite served by nginx
+type: application
+version: 0.1.0
+appVersion: "latest"

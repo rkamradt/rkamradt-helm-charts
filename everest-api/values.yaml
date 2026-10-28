@@ -1,0 +1,36 @@
+replicaCount: 1
+
+image:
+  repository: ghcr.io/rkamradt/everest-api
+  tag: "latest"
+  pullPolicy: Always
+
+imagePullSecrets:
+  - name: ghcr-secret
+
+service:
+  type: ClusterIP
+  port: 8080
+  targetPort: 8080
+
+# ReadWriteOnce PVC for git repositories; single replica with Recreate strategy
+persistence:
+  enabled: true
+  storageClass: "local-path"
+  size: 2Gi
+  mountPath: /data
+
+env:
+  PORT: "8080"
+  EVEREST_DATA_DIR: "/data"
+  MONGODB_URI: "mongodb://mongodb.mongodb.svc.cluster.local:27017/everest"
+  KEYCLOAK_AUDIENCE: "everest-api"
+  KEYCLOAK_ISSUER_BASE_URL: "https://auth.kamradtfamily.net/realms/kamradtfamily"
+
+resources:
+  requests:
+    memory: 128Mi
+    cpu: 50m
+  limits:
+    memory: 512Mi
+    cpu: 500m

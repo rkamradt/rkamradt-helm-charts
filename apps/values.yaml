@@ -203,3 +203,11 @@ apps:
     path: api-smoke-tests
     namespace: api-smoke-tests
     versionValuesFile: version-values.yaml
+  - name: everest-api
+    path: everest-api
+    namespace: everest-api
+    versionValuesFile: version-values.yaml
+  - name: everest
+    path: everest
+    namespace: everest
+    versionValuesFile: version-values.yaml
