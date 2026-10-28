@@ -20,8 +20,7 @@ persistence:
 env:
   PORT: "8080"
   EVEREST_DATA_DIR: "/data"
-  MONGODB_URI: "mongodb://mongodb.mongodb.svc.cluster.local:27017/everest"
-  KEYCLOAK_AUDIENCE: "everest-api"
+KEYCLOAK_AUDIENCE: "everest-api"
   KEYCLOAK_ISSUER_BASE_URL: "https://auth.kamradtfamily.net/realms/rkamradt"
 
 resources:

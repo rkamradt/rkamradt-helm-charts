@@ -30,6 +30,11 @@ spec:
             - name: {{ $key }}
               value: {{ $val | quote }}
             {{- end }}
+            - name: MONGODB_URI
+              valueFrom:
+                secretKeyRef:
+                  name: everest-mongo-config
+                  key: MONGODB_URI
           {{- if .Values.persistence.enabled }}
           volumeMounts:
             - name: data
