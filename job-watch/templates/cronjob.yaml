@@ -30,6 +30,10 @@ spec:
               envFrom:
                 - secretRef:
                     name: {{ .Values.secretName }}
+                {{- if .Values.gmailCredsSecretName }}
+                - secretRef:
+                    name: {{ .Values.gmailCredsSecretName }}
+                {{- end }}
               volumeMounts:
                 - name: config
                   mountPath: /config

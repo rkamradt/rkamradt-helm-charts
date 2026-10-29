@@ -10,8 +10,12 @@ imagePullSecrets:
 schedule: "0 */4 * * *"
 
 # Name of the Kubernetes Secret containing:
-#   MONGO_URI, GMAIL_USER, GMAIL_APP_PASSWORD, GMAIL_TO
+#   MONGO_URI, GMAIL_USER, GMAIL_APP_PASSWORD, GMAIL_TO, ANTHROPIC_API_KEY
 secretName: job-watch-secrets
+
+# Optional secret containing Gmail OAuth2 credentials for discovery:
+#   GMAIL_CLIENT_ID, GMAIL_CLIENT_SECRET, GMAIL_REFRESH_TOKEN
+gmailCredsSecretName: job-watch-gmail-creds
 
 # companies.yaml content — rendered into a ConfigMap and mounted at /config/
 # The indented block below is the default; override in a private values file.
@@ -48,7 +52,7 @@ companiesYaml: |
       - "no remote"
 
   gmail_discovery:
-    enabled: false
+    enabled: true
     auto_activate: false
     probe_rate_limit_delay: 2.0
     negative_cache_ttl_days: 30
