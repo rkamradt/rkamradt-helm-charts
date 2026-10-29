@@ -29,6 +29,30 @@ companiesYaml: |
     title_exclude: [manager, director, intern, "data scientist", sales, recruiter, "business development", emea, apac, latam]
     boost_keywords: [kafka, kubernetes, "event-driven", platform, java, kotlin, " ai", llm, "machine learning"]
 
+  screening:
+    enabled: false
+    model: claude-haiku-4-5-20251001
+    candidate_profile: |
+      20+ years of software engineering experience. Strong background in distributed systems,
+      event-driven architecture (Kafka), Kubernetes, Java/Kotlin, and LLM/AI integration.
+      Seeking principal, staff, or lead engineer roles at product companies. Remote US only.
+
+  llm_scoring:
+    enabled: true
+    threshold: 70
+    daily_cap: 200
+    model: claude-haiku-4-5-20251001
+    remote_us_required: true
+    dealbreakers:
+      - "on-site only"
+      - "no remote"
+
+  gmail_discovery:
+    enabled: false
+    auto_activate: false
+    probe_rate_limit_delay: 2.0
+    negative_cache_ttl_days: 30
+
   concurrency_limit: 3
   request_timeout_sec: 30
 
