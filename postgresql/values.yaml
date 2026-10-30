@@ -1,8 +1,8 @@
 replicaCount: 1
 
 image:
-  repository: postgres
-  tag: "16-alpine"
+  repository: pgvector/pgvector
+  tag: "pg16"
   pullPolicy: IfNotPresent
 
 auth:
