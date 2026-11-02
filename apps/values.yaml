@@ -211,3 +211,7 @@ apps:
     path: everest
     namespace: everest
     versionValuesFile: version-values.yaml
+  - name: almanack
+    path: almanack
+    namespace: almanack
+    versionValuesFile: version-values.yaml
