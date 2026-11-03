@@ -76,18 +76,6 @@ apps:
     path: blackbook-read-profile
     namespace: blackbook
     versionValuesFile: version-values.yaml
-  - name: readnews
-    path: readnews
-    namespace: nr
-    versionValuesFile: version-values.yaml
-  - name: readnewsblock
-    path: readnewsblock
-    namespace: nr
-    versionValuesFile: version-values.yaml
-  - name: readnewsgo
-    path: readnewsgo
-    namespace: nr
-    versionValuesFile: version-values.yaml
   - name: naivefront
     path: naivefront
     namespace: naivefront
