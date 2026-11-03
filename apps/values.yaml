@@ -78,22 +78,6 @@ apps:
     path: arch-test-gen
     namespace: rkamradt-platform
     versionValuesFile: version-values.yaml
-  - name: account-service
-    path: account-service
-    namespace: fintech
-    versionValuesFile: version-values.yaml
-  - name: transaction-service
-    path: transaction-service
-    namespace: fintech
-    versionValuesFile: version-values.yaml
-  - name: user-service
-    path: user-service
-    namespace: fintech
-    versionValuesFile: version-values.yaml
-  - name: fintech-ui
-    path: fintech-ui
-    namespace: fintech
-    versionValuesFile: version-values.yaml
   - name: simcity-frontend
     path: simcity-frontend
     namespace: simcity-lite
