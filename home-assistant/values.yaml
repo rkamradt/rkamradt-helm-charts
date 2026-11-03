@@ -6,15 +6,16 @@ image:
   pullPolicy: IfNotPresent
 
 service:
-  # LoadBalancer lets K3s klipper-lb expose HA on the node's LAN IP (port 8123).
-  # Tablets reach Home Assistant at http://<servy-lan-ip>:8123
-  type: LoadBalancer
+  # ClusterIP for in-cluster access (Wyoming services, smoke tests).
+  # Tablets reach HA directly at http://<servy-lan-ip>:8123 via hostNetwork below.
+  type: ClusterIP
   port: 8123
   targetPort: 8123
 
-# Set to true for mDNS / device discovery (Matter, Zigbee-over-IP).
-# Tradeoff: pod uses host network namespace, loses K8s DNS isolation.
-hostNetwork: false
+# hostNetwork binds HA directly to the node's LAN IP (192.168.4.36:8123).
+# This is the access path for tablets; it also enables mDNS device discovery.
+# dnsPolicy is guarded in the template — cluster DNS still works when true.
+hostNetwork: true
 
 persistence:
   size: 1Gi
