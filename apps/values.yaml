@@ -162,3 +162,15 @@ apps:
     path: almanack
     namespace: almanack
     versionValuesFile: version-values.yaml
+  - name: home-assistant
+    path: home-assistant
+    namespace: home-assistant
+  - name: wyoming-whisper
+    path: wyoming-whisper
+    namespace: home-assistant
+  - name: wyoming-piper
+    path: wyoming-piper
+    namespace: home-assistant
+  - name: wyoming-openwakeword
+    path: wyoming-openwakeword
+    namespace: home-assistant

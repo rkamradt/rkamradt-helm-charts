@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Chart.Name }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: {{ .Chart.Name }}
+    version: {{ .Chart.AppVersion | quote }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: {{ .Chart.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Chart.Name }}
+        version: {{ .Chart.AppVersion | quote }}
+    spec:
+      enableServiceLinks: false
+      nodeSelector:
+        {{- toYaml .Values.nodeSelector | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          args:
+            - --model
+            - {{ .Values.model | quote }}
+            - --data-dir
+            - {{ .Values.persistence.mountPath | quote }}
+            - --uri
+            - "tcp://0.0.0.0:{{ .Values.service.targetPort }}"
+          ports:
+            - name: wyoming
+              containerPort: {{ .Values.service.targetPort }}
+              protocol: TCP
+          # Allow generous startup: model is downloaded on first run.
+          # tiny-int8 ~150 MB; medium-int8 ~1.5 GB — 20 min window covers all options.
+          startupProbe:
+            tcpSocket:
+              port: {{ .Values.service.targetPort }}
+            failureThreshold: 120
+            periodSeconds: 10
+          livenessProbe:
+            tcpSocket:
+              port: {{ .Values.service.targetPort }}
+            periodSeconds: 30
+            failureThreshold: 3
+          readinessProbe:
+            tcpSocket:
+              port: {{ .Values.service.targetPort }}
+            periodSeconds: 10
+          volumeMounts:
+            - name: data
+              mountPath: {{ .Values.persistence.mountPath }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: {{ .Chart.Name }}-data

@@ -1,0 +1,33 @@
+replicaCount: 1
+
+image:
+  repository: ghcr.io/home-assistant/home-assistant
+  tag: "2026.10.4"
+  pullPolicy: IfNotPresent
+
+service:
+  # LoadBalancer lets K3s klipper-lb expose HA on the node's LAN IP (port 8123).
+  # Tablets reach Home Assistant at http://<servy-lan-ip>:8123
+  type: LoadBalancer
+  port: 8123
+  targetPort: 8123
+
+# Set to true for mDNS / device discovery (Matter, Zigbee-over-IP).
+# Tradeoff: pod uses host network namespace, loses K8s DNS isolation.
+hostNetwork: false
+
+persistence:
+  size: 1Gi
+  storageClass: local-path
+  mountPath: /config
+
+nodeSelector:
+  kubernetes.io/hostname: servy
+
+resources:
+  requests:
+    memory: 256Mi
+    cpu: 100m
+  limits:
+    memory: 512Mi
+    cpu: 500m

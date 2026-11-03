@@ -1,0 +1,6 @@
+apiVersion: v2
+name: wyoming-whisper
+description: Wyoming Whisper — CPU speech-to-text for Home Assistant Assist
+type: application
+version: 0.1.0
+appVersion: "3.8.1"

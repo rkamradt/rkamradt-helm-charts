@@ -1,0 +1,31 @@
+replicaCount: 1
+
+image:
+  repository: rhasspy/wyoming-piper
+  tag: "2.5.2"
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 10200
+  targetPort: 10200
+
+# Piper voice to use. Voice model is downloaded to the PVC on first run.
+# Browse voices at https://rhasspy.github.io/piper-samples/
+voice: "en_US-lessac-medium"
+
+persistence:
+  size: 1Gi
+  storageClass: local-path
+  mountPath: /data
+
+nodeSelector:
+  kubernetes.io/hostname: servy
+
+resources:
+  requests:
+    memory: 128Mi
+    cpu: 100m
+  limits:
+    memory: 512Mi
+    cpu: 1000m

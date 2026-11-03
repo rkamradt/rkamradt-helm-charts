@@ -1,0 +1,32 @@
+replicaCount: 1
+
+image:
+  repository: rhasspy/wyoming-whisper
+  tag: "3.8.1"
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 10300
+  targetPort: 10300
+
+# Whisper model to load. int8 quantized models run on CPU without a GPU.
+# Options: tiny-int8 (fastest), base-int8, small-int8, medium-int8 (most accurate)
+model: "tiny-int8"
+
+persistence:
+  size: 2Gi
+  storageClass: local-path
+  mountPath: /data
+
+nodeSelector:
+  kubernetes.io/hostname: servy
+
+# Whisper is the hungriest piece — allow CPU burst during active transcription.
+resources:
+  requests:
+    memory: 256Mi
+    cpu: 200m
+  limits:
+    memory: 1Gi
+    cpu: 2000m

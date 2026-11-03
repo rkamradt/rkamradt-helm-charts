@@ -1,0 +1,25 @@
+# Set to false if satellites handle wake-word detection on-device instead.
+enabled: true
+
+replicaCount: 1
+
+image:
+  repository: rhasspy/wyoming-openwakeword
+  tag: "2.1.0"
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 10400
+  targetPort: 10400
+
+nodeSelector:
+  kubernetes.io/hostname: servy
+
+resources:
+  requests:
+    memory: 128Mi
+    cpu: 50m
+  limits:
+    memory: 256Mi
+    cpu: 500m

@@ -8,6 +8,7 @@ schedule: "*/30 * * * *"
 env:
   SMOKE_TIMEOUT: "15"
   OLLAMA_MODEL: "llama3.2:3b-instruct-q4_K_M"
+  OWW_ENABLED: "true"
 
 # Secrets injected as env vars — create with setup-secrets.sh before enabling
 # - secretName: grafana-smoke-secret   (key: GRAFANA_API_KEY)
