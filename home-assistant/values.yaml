@@ -6,16 +6,15 @@ image:
   pullPolicy: IfNotPresent
 
 service:
-  # ClusterIP for in-cluster access (Wyoming services, smoke tests).
-  # Tablets reach HA directly at http://<servy-lan-ip>:8123 via hostNetwork below.
-  type: ClusterIP
+  # LoadBalancer: K3s ServiceLB assigns servy's LAN IP as EXTERNAL-IP on port 8123.
+  # Tablets reach Home Assistant at http://<EXTERNAL-IP>:8123
+  type: LoadBalancer
   port: 8123
   targetPort: 8123
 
-# hostNetwork binds HA directly to the node's LAN IP (192.168.4.36:8123).
-# This is the access path for tablets; it also enables mDNS device discovery.
-# dnsPolicy is guarded in the template — cluster DNS still works when true.
-hostNetwork: true
+# false: use the LoadBalancer service for LAN access (cleaner, no host network sharing).
+# Set to true only if mDNS device discovery is needed (Matter, Zigbee-over-IP).
+hostNetwork: false
 
 persistence:
   size: 1Gi
