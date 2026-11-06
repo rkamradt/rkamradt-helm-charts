@@ -1,0 +1,33 @@
+replicaCount: 1
+
+image:
+  repository: localstack/localstack
+  tag: "4.4"
+  pullPolicy: IfNotPresent   # public image, no ghcr-secret needed
+
+service:
+  type: ClusterIP
+  port: 4566
+  targetPort: 4566
+
+# Auth token is loaded from a manually-created secret:
+#   kubectl -n localstack create secret generic localstack-auth \
+#     --from-literal=LOCALSTACK_AUTH_TOKEN=<your-token>
+authSecretName: localstack-auth
+
+persistence:
+  enabled: true
+  storageClass: "local-path"
+  size: 2Gi
+  mountPath: /var/lib/localstack
+
+# Optional: comma-separated list of services to pre-warm (empty = all on demand)
+services: ""
+
+resources:
+  requests:
+    memory: 256Mi
+    cpu: 100m
+  limits:
+    memory: 1Gi
+    cpu: 1000m

@@ -174,3 +174,6 @@ apps:
   - name: wyoming-openwakeword
     path: wyoming-openwakeword
     namespace: home-assistant
+  - name: localstack
+    path: localstack
+    namespace: localstack
