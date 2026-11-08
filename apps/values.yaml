@@ -177,3 +177,7 @@ apps:
   - name: localstack
     path: localstack
     namespace: localstack
+  - name: claim-intake
+    path: claim-intake
+    namespace: claim-intake
+    versionValuesFile: version-values.yaml

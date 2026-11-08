@@ -34,6 +34,10 @@ spec:
             {{- end }}
             - name: PERSISTENCE
               value: "1"
+            # Run Lambda code in-process instead of spawning Docker containers.
+            # Required for in-cluster use: the pod has no Docker socket.
+            - name: LAMBDA_RUNTIME_EXECUTOR
+              value: "local"
           {{- if .Values.persistence.enabled }}
           volumeMounts:
             - name: data

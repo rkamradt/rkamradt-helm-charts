@@ -1,0 +1,44 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: claim-intake-deploy
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    # ArgoCD runs this Job after all resources in the app are synced and healthy.
+    argocd.argoproj.io/hook: PostSync
+    # Delete the previous run's Job before creating the new one, so re-syncs
+    # always trigger a fresh deploy rather than leaving stale completed Jobs.
+    argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
+spec:
+  backoffLimit: {{ .Values.backoffLimit }}
+  template:
+    metadata:
+      labels:
+        app: claim-intake-deploy
+    spec:
+      restartPolicy: OnFailure
+      enableServiceLinks: false
+      containers:
+        - name: deploy
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            # Fake credentials — LocalStack ignores them but the AWS SDK requires them.
+            - name: AWS_ACCESS_KEY_ID
+              value: "test"
+            - name: AWS_SECRET_ACCESS_KEY
+              value: "test"
+            - name: AWS_DEFAULT_REGION
+              value: "us-east-1"
+            - name: AWS_ENDPOINT_URL
+              value: {{ .Values.localstackUrl | quote }}
+            - name: USE_REAL_AI
+              value: {{ .Values.useRealAI | quote }}
+            {{- if .Values.anthropicSecretName }}
+            - name: ANTHROPIC_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.anthropicSecretName }}
+                  key: ANTHROPIC_API_KEY
+                  optional: true
+            {{- end }}

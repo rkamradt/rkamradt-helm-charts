@@ -1,0 +1,18 @@
+image:
+  repository: ghcr.io/rkamradt/claim-intake
+  tag: "latest"
+  pullPolicy: Always
+
+# In-cluster LocalStack endpoint. The SAM stack is deployed here.
+localstackUrl: "http://localstack.localstack.svc.cluster.local:4566"
+
+# Set to "true" to call the real Anthropic API (requires anthropicSecretName).
+useRealAI: "false"
+
+# If non-empty, ANTHROPIC_API_KEY is loaded from this secret (key: ANTHROPIC_API_KEY).
+# Create manually: kubectl -n claim-intake create secret generic claim-intake-ai \
+#   --from-literal=ANTHROPIC_API_KEY=<key>
+anthropicSecretName: ""
+
+# Backoff limit for the PostSync Job before it is marked Failed.
+backoffLimit: 2

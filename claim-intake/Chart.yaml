@@ -1,0 +1,8 @@
+apiVersion: v2
+name: claim-intake
+description: >
+  ArgoCD PostSync Job that deploys the claim-intake SAM stack into the
+  in-cluster LocalStack instance. Runs samlocal deploy after every ArgoCD sync.
+type: application
+version: 0.1.0
+appVersion: "latest"
